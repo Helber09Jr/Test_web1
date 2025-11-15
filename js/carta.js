@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 async function cargarDatosMenu() {
   try {
-    const response = await fetch('menu.json');
+    const response = await fetch('data/carta.json');
     if (!response.ok) {
       throw new Error('Error al cargar el menú');
     }
@@ -659,3 +659,4 @@ function mostrarToast(mensaje) {
 // Hacer la función global
 window.mostrarToast = mostrarToast;
 window.verificarLimiteGuarniciones = verificarLimiteGuarniciones;
+
