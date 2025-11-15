@@ -439,26 +439,24 @@ function construirMensajeWhatsApp(cliente, mozo, observacionGeneral) {
     minute: '2-digit'
   });
   
-  let mensaje = `🌳 *PEDIDO - LA ARBOLEDA CLUB* 🌳\n`;
-  mensaje += `━━━━━━━━━━━━━━━━━━━━━\n\n`;
-  mensaje += `📅 *Fecha:* ${fechaFormateada}\n`;
-  mensaje += `🕐 *Hora:* ${horaFormateada}\n`;
-  mensaje += `👤 *Cliente/Mesa:* ${cliente}\n`;
-  mensaje += `👨‍🍳 *Atendido por:* ${mozo}\n\n`;
+  let mensaje = `PEDIDO - LA ARBOLEDA CLUB\n`;
   mensaje += `━━━━━━━━━━━━━━━━━━━━━\n`;
-  mensaje += `📋 *DETALLE DEL PEDIDO:*\n`;
-  mensaje += `━━━━━━━━━━━━━━━━━━━━━\n\n`;
+  mensaje += `Fecha: ${fechaFormateada}\n`;
+  mensaje += `Hora: ${horaFormateada}\n`;
+  mensaje += `Cliente/Mesa: ${cliente}\n`;
+  mensaje += `Atendido por: ${mozo}\n`;
+  mensaje += `━━━━━━━━━━━━━━━━━━━━━\n`;
+  mensaje += `  DETALLE DEL PEDIDO:\n`;
+  mensaje += `━━━━━━━━━━━━━━━━━━━━━\n`;
   
   let numeroItem = 1;
   carrito.forEach(item => {
-    mensaje += `*${numeroItem}. ${item.nombre}*\n`;
+    mensaje += `${numeroItem}. ${item.nombre} S/ ${item.precio.toFixed(2)}\n`;
     mensaje += `   Cantidad: ${item.cantidad}\n`;
-    mensaje += `   Precio unit.: S/ ${item.precio.toFixed(2)}\n`;
-    mensaje += `   Subtotal: S/ ${(item.precio * item.cantidad).toFixed(2)}\n`;
     
     // Opciones
     if (item.opciones && Object.keys(item.opciones).length > 0) {
-      mensaje += `   📋 Opciones:\n`;
+      mensaje += `   Opciones:\n`;
       Object.entries(item.opciones).forEach(([key, value]) => {
         mensaje += `      • ${formatearClaveOpcion(key)}: ${value}\n`;
       });
@@ -466,31 +464,29 @@ function construirMensajeWhatsApp(cliente, mozo, observacionGeneral) {
     
     // Guarniciones
     if (item.guarniciones && item.guarniciones.length > 0) {
-      mensaje += `   🍽️ Guarniciones: ${item.guarniciones.join(', ')}\n`;
+      mensaje += `   Guarniciones: ${item.guarniciones.join(', ')}\n`;
     }
     
     // Observación del plato
     if (item.observacion) {
-      mensaje += `   📝 Nota: ${item.observacion}\n`;
+      mensaje += `   Nota: ${item.observacion}\n`;
     }
     
-    mensaje += `\n`;
     numeroItem++;
   });
   
-  mensaje += `━━━━━━━━━━━━━━━━━━━━━\n`;
-  const total = calcularTotal();
-  mensaje += `💰 *TOTAL A PAGAR: S/ ${total.toFixed(2)}*\n`;
-  mensaje += `━━━━━━━━━━━━━━━━━━━━━\n`;
-  
   // Observación general
   if (observacionGeneral) {
-    mensaje += `\n📌 *OBSERVACIONES GENERALES:*\n`;
+    mensaje += `OBSERVACIONES GENERALES:\n`;
     mensaje += `${observacionGeneral}\n`;
   }
   
-  mensaje += `\n✅ *Pedido generado desde la web*\n`;
-  mensaje += `🌐 www.laarboledaclub.com`;
+  mensaje += `━━━━━━━━━━━━━━━━━━━━━\n`;
+  const total = calcularTotal();
+  mensaje += `TOTAL A PAGAR: S/ ${total.toFixed(2)}\n`;
+  mensaje += `━━━━━━━━━━━━━━━━━━━━━\n`;
+  mensaje += `Pedido generado desde la web\n`;
+  mensaje += ` www.laarboledaclub.com`;
   
   return mensaje;
 }
