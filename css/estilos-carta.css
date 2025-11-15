@@ -266,24 +266,36 @@ button {
 .boton-menu-movil {
   display: none;
   flex-direction: column;
-  gap: 5px;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
   background: none;
   border: none;
   cursor: pointer;
-  padding: 8px;
+  padding: 10px;
+  width: 44px;
+  height: 44px;
 }
 
 .boton-menu-movil .linea {
-  width: 28px;
-  height: 3px;
+  width: 24px;
+  height: 2px;
   background: var(--dorado-claro);
   border-radius: 2px;
-  transition: 0.3s;
+  transition: all 0.3s ease;
+  transform-origin: center;
 }
 
-.boton-menu-movil.activo .linea:nth-child(1) { transform: rotate(45deg) translate(6px, 6px); }
-.boton-menu-movil.activo .linea:nth-child(2) { opacity: 0; }
-.boton-menu-movil.activo .linea:nth-child(3) { transform: rotate(-45deg) translate(6px, -6px); }
+.boton-menu-movil.activo .linea:nth-child(1) { 
+  transform: rotate(45deg) translate(5px, 5px); 
+}
+.boton-menu-movil.activo .linea:nth-child(2) { 
+  opacity: 0; 
+  transform: scaleX(0);
+}
+.boton-menu-movil.activo .linea:nth-child(3) { 
+  transform: rotate(-45deg) translate(6px, -6px); 
+}
 
 /* ==========================================================
    HERO DE LA CARTA
@@ -570,9 +582,11 @@ button {
   gap: 25px;
 }
 
+/* Vista simple - Lista vertical */
 .grilla-platos.vista-simple {
-  grid-template-columns: 1fr;
-  gap: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 /* Tarjeta de plato - Vista detallada */
@@ -640,7 +654,7 @@ button {
   font-weight: 700;
   color: var(--azul-principal);
   margin-bottom: 8px;
-  font-family: 'Playfair Display', serif;
+  font-family: Arial, Helvetica, sans-serif;
   line-height: 1.3;
 }
 
@@ -698,25 +712,24 @@ button {
 }
 
 /* ==========================================================
-   VISTA SIMPLE (LISTA)
+   VISTA SIMPLE (LISTA VERTICAL COMPACTA)
    ========================================================== */
 .tarjeta-plato-simple {
   display: flex;
   align-items: center;
   justify-content: space-between;
   background: var(--blanco);
-  padding: 16px 20px;
-  border-radius: 12px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+  padding: 12px 16px;
+  border-radius: 10px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
   transition: all 0.3s ease;
   cursor: pointer;
-  border: 2px solid transparent;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .tarjeta-plato-simple:hover {
-  border-color: var(--azul-suave);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
-  transform: translateX(5px);
+  background: #f8f9ff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
 .tarjeta-plato-simple:focus-visible {
@@ -727,39 +740,46 @@ button {
 .plato-simple-info {
   display: flex;
   align-items: center;
-  gap: 15px;
+  gap: 12px;
   flex: 1;
+  min-width: 0;
 }
 
 .plato-simple-icono {
-  font-size: 1.5rem;
+  font-size: 1.2rem;
+  flex-shrink: 0;
 }
 
 .plato-simple-nombre {
-  font-size: 1rem;
+  font-size: 0.95rem;
   font-weight: 600;
   color: #333;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .plato-simple-acciones {
   display: flex;
   align-items: center;
-  gap: 15px;
+  gap: 12px;
+  flex-shrink: 0;
 }
 
 .plato-simple-precio {
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: 700;
   color: var(--dorado);
+  white-space: nowrap;
 }
 
 .btn-agregar-simple {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 36px;
-  height: 36px;
-  background: var(--verde-acento);
+  width: 32px;
+  height: 32px;
+  background: var(--azul-principal);
   border: none;
   border-radius: 50%;
   cursor: pointer;
@@ -767,14 +787,14 @@ button {
 }
 
 .btn-agregar-simple svg {
-  width: 18px;
-  height: 18px;
+  width: 16px;
+  height: 16px;
   stroke: var(--blanco);
 }
 
 .btn-agregar-simple:hover {
-  background: #34a668;
-  transform: scale(1.15);
+  background: var(--azul-suave);
+  transform: scale(1.1);
 }
 
 /* Sin resultados */
@@ -933,7 +953,7 @@ button {
   font-size: 1.3rem;
   font-weight: 700;
   color: var(--azul-principal);
-  font-family: 'Playfair Display', serif;
+  font-family: Arial, Helvetica, sans-serif;
   line-height: 1.2;
   margin: 0;
 }
@@ -1247,8 +1267,8 @@ button {
   gap: 8px;
   width: 100%;
   padding: 12px;
-  background: linear-gradient(135deg, var(--dorado-claro) 0%, var(--dorado) 100%);
-  color: var(--azul-principal);
+  background: linear-gradient(135deg,var(--azul-principal) 100%);
+  color: var(--blanco);
   font-size: 0.95rem;
   font-weight: 700;
   border: none;
@@ -1890,7 +1910,15 @@ button {
   }
   
   .lista-navegacion.mostrar { display: flex; }
-  .enlace-nav { padding: 16px; border-bottom: 1px solid rgba(225, 194, 148, 0.1); }
+  .enlace-nav { 
+    padding: 14px 16px; 
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1); 
+    display: block;
+    width: 100%;
+  }
+  .enlace-nav::after {
+    display: none;
+  }
   .boton-menu-movil { display: flex; }
   
   .modal-plato-grid {
@@ -1907,10 +1935,17 @@ button {
   .titulo-hero-carta { font-size: 2.2rem; }
   .hero-carta { height: 35vh; min-height: 250px; }
   
-  /* GRID DE PLATOS EN 2 COLUMNAS PARA MÓVIL */
+  /* GRID DE PLATOS EN 2 COLUMNAS PARA MÓVIL - VISTA DETALLADA */
   .grilla-platos {
-    grid-template-columns: repeat(2, 1fr) !important;
+    grid-template-columns: repeat(2, 1fr);
     gap: 15px;
+  }
+  
+  /* VISTA SIMPLE - LISTA VERTICAL (NO GRID) */
+  .grilla-platos.vista-simple {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 6px !important;
   }
   
   .tarjeta-plato-imagen {
@@ -2001,7 +2036,7 @@ button {
     height: 60px;
   }
   
-  /* Toast corregido para móvil - con animación forzada */
+  /* Toast corregido para móvil */
   .toast-notificacion {
     right: 15px;
     bottom: 100px;
@@ -2024,10 +2059,44 @@ button {
   .titulo-hero-carta { font-size: 1.8rem; }
   .subtitulo-hero-carta { font-size: 0.95rem; }
   
-  /* GRID DE PLATOS EN 2 COLUMNAS PARA MÓVIL PEQUEÑO */
+  /* GRID DE PLATOS EN 2 COLUMNAS PARA MÓVIL PEQUEÑO - VISTA DETALLADA */
   .grilla-platos {
-    grid-template-columns: repeat(2, 1fr) !important;
+    grid-template-columns: repeat(2, 1fr);
     gap: 12px;
+  }
+  
+  /* VISTA SIMPLE - LISTA VERTICAL COMPACTA */
+  .grilla-platos.vista-simple {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 4px !important;
+  }
+  
+  .tarjeta-plato-simple {
+    padding: 10px 14px;
+    border-radius: 8px;
+  }
+  
+  .plato-simple-icono {
+    font-size: 1rem;
+  }
+  
+  .plato-simple-nombre {
+    font-size: 0.9rem;
+  }
+  
+  .plato-simple-precio {
+    font-size: 0.95rem;
+  }
+  
+  .btn-agregar-simple {
+    width: 30px;
+    height: 30px;
+  }
+  
+  .btn-agregar-simple svg {
+    width: 14px;
+    height: 14px;
   }
   
   .tarjeta-plato {
@@ -2241,4 +2310,4 @@ button {
     padding: 12px 20px;
     font-size: 0.9rem;
   }
-   }
+}
