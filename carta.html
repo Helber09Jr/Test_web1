@@ -66,7 +66,7 @@
     </div>
   </header>
 
-    <!-- Hero de la Carta -->
+  <!-- Hero de la Carta -->
   <section class="hero-carta">
     <div class="overlay-hero-carta"></div>
     <div class="contenido-hero-carta">
@@ -198,29 +198,29 @@
             <span class="contador-caracteres"><span id="contadorObservacion">0</span>/200</span>
           </div>
 
-          <!-- Cantidad -->
-          <div class="modal-cantidad">
-            <label>Cantidad</label>
-            <div class="control-cantidad">
-              <button id="btnRestarCantidad" class="btn-cantidad" aria-label="Restar cantidad">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <line x1="5" y1="12" x2="19" y2="12"></line>
-                </svg>
-              </button>
-              <span id="cantidadPlato" class="cantidad-valor">1</span>
-              <button id="btnSumarCantidad" class="btn-cantidad" aria-label="Sumar cantidad">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <line x1="12" y1="5" x2="12" y2="19"></line>
-                  <line x1="5" y1="12" x2="19" y2="12"></line>
-                </svg>
-              </button>
+          <!-- Cantidad y Subtotal en línea -->
+          <div class="modal-cantidad-subtotal">
+            <div class="modal-cantidad">
+              <label>Cantidad</label>
+              <div class="control-cantidad">
+                <button id="btnRestarCantidad" class="btn-cantidad" aria-label="Restar cantidad">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                  </svg>
+                </button>
+                <span id="cantidadPlato" class="cantidad-valor">1</span>
+                <button id="btnSumarCantidad" class="btn-cantidad" aria-label="Sumar cantidad">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                  </svg>
+                </button>
+              </div>
             </div>
-          </div>
-
-          <!-- Subtotal -->
-          <div class="modal-subtotal">
-            <span>Subtotal:</span>
-            <span id="modalSubtotal" class="subtotal-valor">S/ 0.00</span>
+            <div class="modal-subtotal">
+              <span>Subtotal:</span>
+              <span id="modalSubtotal" class="subtotal-valor">S/ 0.00</span>
+            </div>
           </div>
 
           <!-- Botón agregar -->
