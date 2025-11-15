@@ -1,4 +1,11 @@
 {
+  "guarniciones": [
+    "Papas fritas",
+    "Arroz",
+    "Ensalada",
+    "Papas amarillas fritas",
+    "Zarza criolla"
+  ],
   "categorias": [
     {
       "id": "entradas",
