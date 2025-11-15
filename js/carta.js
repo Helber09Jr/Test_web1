@@ -267,10 +267,14 @@ function crearTarjetaDetallada(plato) {
 }
 
 function crearTarjetaSimple(plato) {
+  // Obtener icono de la categoría del plato
+  const categoria = datosMenu.categorias.find(c => c.id === plato.categoria);
+  const iconoCategoria = categoria ? categoria.icono : '🍽️';
+  
   return `
     <div class="tarjeta-plato-simple" data-plato-id="${plato.id}" tabindex="0">
       <div class="plato-simple-info">
-        <span class="plato-simple-icono">${plato.icono || '🍽️'}</span>
+        <span class="plato-simple-icono">${iconoCategoria}</span>
         <span class="plato-simple-nombre">${plato.nombre}</span>
       </div>
       <div class="plato-simple-acciones">
@@ -291,7 +295,7 @@ function agregarEventListenersPlatos() {
   document.querySelectorAll('.btn-agregar-rapido').forEach(boton => {
     boton.onclick = (e) => {
       e.stopPropagation();
-      const platoId = parseInt(boton.getAttribute('data-plato-id'));
+      const platoId = boton.getAttribute('data-plato-id');
       abrirModalPlato(platoId);
     };
   });
@@ -300,7 +304,7 @@ function agregarEventListenersPlatos() {
   document.querySelectorAll('.btn-agregar-simple').forEach(boton => {
     boton.onclick = (e) => {
       e.stopPropagation();
-      const platoId = parseInt(boton.getAttribute('data-plato-id'));
+      const platoId = boton.getAttribute('data-plato-id');
       abrirModalPlato(platoId);
     };
   });
@@ -309,7 +313,7 @@ function agregarEventListenersPlatos() {
   document.querySelectorAll('.btn-vista-previa').forEach(boton => {
     boton.onclick = (e) => {
       e.stopPropagation();
-      const platoId = parseInt(boton.getAttribute('data-plato-id'));
+      const platoId = boton.getAttribute('data-plato-id');
       abrirModalVistaPrevia(platoId);
     };
   });
@@ -318,7 +322,7 @@ function agregarEventListenersPlatos() {
   document.querySelectorAll('.tarjeta-plato').forEach(tarjeta => {
     tarjeta.onclick = (e) => {
       if (!e.target.closest('button')) {
-        const platoId = parseInt(tarjeta.getAttribute('data-plato-id'));
+        const platoId = tarjeta.getAttribute('data-plato-id');
         abrirModalPlato(platoId);
       }
     };
@@ -327,7 +331,7 @@ function agregarEventListenersPlatos() {
   document.querySelectorAll('.tarjeta-plato-simple').forEach(tarjeta => {
     tarjeta.onclick = (e) => {
       if (!e.target.closest('button')) {
-        const platoId = parseInt(tarjeta.getAttribute('data-plato-id'));
+        const platoId = tarjeta.getAttribute('data-plato-id');
         abrirModalPlato(platoId);
       }
     };
@@ -363,7 +367,7 @@ function inicializarModalVistaPrevia() {
   
   if (btnAgregar) {
     btnAgregar.onclick = () => {
-      const platoId = parseInt(btnAgregar.getAttribute('data-plato-id'));
+      const platoId = btnAgregar.getAttribute('data-plato-id');
       cerrarModalVistaPrevia();
       setTimeout(() => {
         abrirModalPlato(platoId);
@@ -602,7 +606,8 @@ function renderizarGuarniciones(plato) {
   
   if (!contenedor || !lista) return;
   
-  if (!plato.guarniciones || !datosMenu.guarniciones) {
+  // Verificar si el plato tiene guarniciones definidas
+  if (!plato.guarniciones || !plato.guarniciones.lista || plato.guarniciones.lista.length === 0) {
     contenedor.style.display = 'none';
     return;
   }
@@ -610,25 +615,35 @@ function renderizarGuarniciones(plato) {
   contenedor.style.display = 'block';
   lista.innerHTML = '';
   
-  datosMenu.guarniciones.forEach((guarnicion, index) => {
+  const maxGuarniciones = plato.guarniciones.max || 2;
+  
+  // Usar las guarniciones específicas del plato
+  plato.guarniciones.lista.forEach((guarnicion, index) => {
     lista.innerHTML += `
       <div class="guarnicion-item">
         <input type="checkbox" 
                id="guarnicion_${index}" 
                value="${guarnicion}"
-               onchange="verificarLimiteGuarniciones()">
+               data-max="${maxGuarniciones}"
+               onchange="verificarLimiteGuarniciones(${maxGuarniciones})">
         <label for="guarnicion_${index}">${guarnicion}</label>
       </div>
     `;
   });
   
-  actualizarContadorGuarniciones();
+  // Actualizar el texto del contador
+  const contadorTexto = document.getElementById('contadorGuarniciones');
+  if (contadorTexto) {
+    contadorTexto.textContent = `0/${maxGuarniciones} seleccionadas`;
+  }
+  
+  actualizarContadorGuarniciones(maxGuarniciones);
 }
 
-function verificarLimiteGuarniciones() {
+function verificarLimiteGuarniciones(max) {
+  const limite = max || 2;
   const checkboxes = document.querySelectorAll('#listaGuarniciones input[type="checkbox"]');
   const seleccionadas = Array.from(checkboxes).filter(cb => cb.checked).length;
-  const limite = 2;
   
   checkboxes.forEach(cb => {
     if (!cb.checked && seleccionadas >= limite) {
@@ -638,18 +653,19 @@ function verificarLimiteGuarniciones() {
     }
   });
   
-  actualizarContadorGuarniciones();
+  actualizarContadorGuarniciones(limite);
 }
 
-function actualizarContadorGuarniciones() {
+function actualizarContadorGuarniciones(max) {
+  const limite = max || 2;
   const checkboxes = document.querySelectorAll('#listaGuarniciones input[type="checkbox"]');
   const seleccionadas = Array.from(checkboxes).filter(cb => cb.checked).length;
   const contador = document.getElementById('contadorGuarniciones');
   
   if (contador) {
-    contador.textContent = `${seleccionadas}/2 seleccionadas`;
+    contador.textContent = `${seleccionadas}/${limite} seleccionadas`;
     
-    if (seleccionadas >= 2) {
+    if (seleccionadas >= limite) {
       contador.classList.add('limite');
     } else {
       contador.classList.remove('limite');
