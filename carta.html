@@ -137,6 +137,34 @@
     </div>
   </main>
 
+  <!-- Modal de vista previa (imagen grande) -->
+  <div id="modalVistaPrevia" class="modal-vista-previa" role="dialog" aria-modal="true" aria-labelledby="vistaPreviaTitulo">
+    <div class="modal-overlay-vista"></div>
+    <div class="modal-contenido-vista">
+      <button id="btnCerrarVistaPrevia" class="boton-cerrar-vista" aria-label="Cerrar vista previa">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+      <div class="modal-vista-imagen">
+        <img id="vistaPreviaImg" src="" alt="Vista previa del plato">
+      </div>
+      <div class="modal-vista-info">
+        <h3 id="vistaPreviaTitulo" class="modal-vista-nombre">Nombre del Plato</h3>
+        <div id="vistaPreviaPrecio" class="modal-vista-precio">S/ 0.00</div>
+        <p id="vistaPreviaDescripcion" class="modal-vista-descripcion">Descripción del plato</p>
+        <button id="btnAgregarDesdeVista" class="btn-agregar-desde-vista" data-plato-id="">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="12" y1="5" x2="12" y2="19"></line>
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+          </svg>
+          Personalizar y Agregar
+        </button>
+      </div>
+    </div>
+  </div>
+
   <!-- Modal de personalización del plato -->
   <div id="modalPlato" class="modal-plato" role="dialog" aria-modal="true" aria-labelledby="modalPlatoTitulo">
     <div class="modal-overlay-plato"></div>
