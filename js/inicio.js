@@ -356,29 +356,30 @@ class ModalInstalacion {
   }
 }
 
+// MENÚ MÓVIL MEJORADO - Igual que carta.html
 function inicializarMenuMovil() {
   const botonMenu = document.querySelector('.boton-menu-movil');
   const menuNav = document.querySelector('.lista-navegacion');
 
   if (!botonMenu || !menuNav) return;
 
-  botonMenu.addEventListener('click', (e) => {
-    e.stopPropagation();
-    const estaAbierto = menuNav.classList.contains('mostrar');
-    
-    menuNav.classList.toggle('mostrar');
+  botonMenu.onclick = () => {
     botonMenu.classList.toggle('activo');
-    botonMenu.setAttribute('aria-expanded', !estaAbierto);
-  });
+    menuNav.classList.toggle('mostrar');
+    const expandido = botonMenu.classList.contains('activo');
+    botonMenu.setAttribute('aria-expanded', expandido);
+  };
 
+  // Cerrar menú al hacer click en un enlace
   document.querySelectorAll('.enlace-nav').forEach(enlace => {
-    enlace.addEventListener('click', () => {
+    enlace.onclick = () => {
       menuNav.classList.remove('mostrar');
       botonMenu.classList.remove('activo');
       botonMenu.setAttribute('aria-expanded', 'false');
-    });
+    };
   });
 
+  // Cerrar menú al hacer click fuera
   document.addEventListener('click', (e) => {
     if (!botonMenu.contains(e.target) && !menuNav.contains(e.target)) {
       menuNav.classList.remove('mostrar');
@@ -390,7 +391,7 @@ function inicializarMenuMovil() {
 
 function inicializarScrollSuave() {
   document.querySelectorAll('a[href^="#"]').forEach(enlace => {
-    enlace.addEventListener('click', function(e) {
+    enlace.onclick = function(e) {
       const href = this.getAttribute('href');
       if (href === '#') return;
       
@@ -402,7 +403,7 @@ function inicializarScrollSuave() {
         const posicion = destino.getBoundingClientRect().top + window.pageYOffset - offset;
         window.scrollTo({ top: posicion, behavior: 'smooth' });
       }
-    });
+    };
   });
 }
 
