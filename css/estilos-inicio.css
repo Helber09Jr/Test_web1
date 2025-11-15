@@ -1291,61 +1291,68 @@ a {
   .titulo-principal { font-size: 2.2rem; }
   .titulo-seccion { font-size: 1.9rem; }
   .seccion-hero { height: 70vh; min-height: 500px; }
-  .grilla-instalaciones { grid-template-columns: 1fr; }
+  
+  /* GRILLA DE INSTALACIONES EN 2 COLUMNAS PARA MÓVIL */
+  .grilla-instalaciones { 
+    grid-template-columns: repeat(2, 1fr); 
+    gap: 15px;
+  }
+  
+  .tarjeta-instalacion {
+    border-radius: 16px;
+  }
+  
+  .contenedor-icono-instalacion { 
+    padding: 25px 15px 15px; 
+  }
+  
+  .icono-instalacion-img { 
+    width: 60px; 
+    height: 60px; 
+  }
+  
+  .contenido-tarjeta {
+    padding: 15px;
+  }
+  
+  .contenido-tarjeta h3 {
+    font-size: 1rem;
+    margin-bottom: 8px;
+  }
+  
+  .contenido-tarjeta p {
+    font-size: 0.8rem;
+    margin-bottom: 15px;
+    line-height: 1.5;
+  }
+  
+  .boton-ver-mas {
+    padding: 8px 16px;
+    font-size: 0.8rem;
+  }
+  
+  .boton-ver-mas svg {
+    width: 14px;
+    height: 14px;
+  }
+  
   .grilla-eventos { grid-template-columns: repeat(2, 1fr); gap: 20px; }
   .boton-whatsapp-flotante { width: 60px; height: 60px; bottom: 20px; right: 20px; }
-  .contenedor-icono-instalacion { padding: 35px 25px 20px; }
-  .icono-instalacion-img { width: 80px; height: 80px; }
   .mapa-embebido { height: 250px; }
   .modal-header-mejorado h2 { font-size: 1.4rem; }
   .tab-sub { padding: 6px 14px; font-size: 0.8rem; }
   
-  /* MODAL EN 2 COLUMNAS FORZADO PARA MÓVIL */
-  .modal-contenido-mejorado {
-    max-width: 98%;
-    max-height: 88vh;
-    border-radius: 16px;
+  /* MODAL EN 1 COLUMNA VERTICAL PARA MÓVIL */
+  .modal-body-mejorado { 
+    grid-template-columns: 1fr; 
   }
   
-  .modal-body-mejorado {
-    display: grid !important;
-    grid-template-columns: 180px 1fr !important;
-    grid-template-rows: 1fr !important;
+  .sub-instalacion-imagen { 
+    height: 220px; 
   }
   
-  .sub-instalacion-imagen {
-    height: 100% !important;
-    min-height: 280px !important;
-  }
-  
-  .sub-instalacion-info {
-    padding: 20px;
-    gap: 12px;
-    max-height: none;
-    overflow-y: auto;
-  }
-  
-  .sub-instalacion-info h3 {
-    font-size: 1.2rem;
-  }
-  
-  .sub-desc {
-    font-size: 0.85rem;
-  }
-  
-  .sub-check {
-    font-size: 0.75rem;
-    padding: 4px 10px;
-  }
-  
-  .sub-capacidad {
-    font-size: 0.8rem;
-    padding: 10px 12px;
-  }
-  
-  .boton-reservar-modal {
-    padding: 10px 20px;
-    font-size: 0.85rem;
+  .sub-instalacion-info { 
+    padding: 20px; 
   }
 }
 
@@ -1358,15 +1365,65 @@ a {
   .botones-hero { flex-direction: column; gap: 12px; }
   .boton-primario, .boton-secundario { padding: 14px 32px; font-size: 0.9rem; }
   .titulo-seccion { font-size: 1.6rem; }
+  
+  /* GRILLA DE INSTALACIONES EN 2 COLUMNAS PARA MÓVIL PEQUEÑO */
+  .grilla-instalaciones { 
+    grid-template-columns: repeat(2, 1fr); 
+    gap: 12px;
+  }
+  
+  .tarjeta-instalacion {
+    border-radius: 14px;
+  }
+  
+  .contenedor-icono-instalacion { 
+    padding: 20px 12px 12px; 
+  }
+  
+  .icono-instalacion-img { 
+    width: 50px; 
+    height: 50px; 
+  }
+  
+  .contenido-tarjeta {
+    padding: 12px;
+  }
+  
+  .contenido-tarjeta h3 {
+    font-size: 0.9rem;
+    margin-bottom: 6px;
+    line-height: 1.2;
+  }
+  
+  .contenido-tarjeta p {
+    font-size: 0.75rem;
+    margin-bottom: 12px;
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  
+  .boton-ver-mas {
+    padding: 6px 12px;
+    font-size: 0.75rem;
+    border-radius: 8px;
+  }
+  
+  .boton-ver-mas svg {
+    width: 12px;
+    height: 12px;
+  }
+  
   .grilla-eventos { grid-template-columns: 1fr; }
   .icono-red-premium { width: 48px; height: 48px; }
   .icono-red-premium svg { width: 22px; height: 22px; }
   .mapa-embebido { height: 220px; }
   
-  /* MODAL EN 2 COLUMNAS COMPACTO PARA MÓVIL PEQUEÑO */
+  /* MODAL EN 1 COLUMNA VERTICAL PARA MÓVIL PEQUEÑO */
   .modal-contenido-mejorado { 
-    border-radius: 14px; 
-    margin: 10px;
+    border-radius: 16px; 
   }
   
   .modal-header-mejorado { 
@@ -1384,14 +1441,11 @@ a {
   }
   
   .modal-body-mejorado {
-    display: grid !important;
-    grid-template-columns: 140px 1fr !important;
-    grid-template-rows: 1fr !important;
+    grid-template-columns: 1fr;
   }
   
   .sub-instalacion-imagen { 
-    height: 100% !important;
-    min-height: 250px !important;
+    height: 180px;
   }
   
   .sub-instalacion-info {
@@ -1404,34 +1458,34 @@ a {
   }
   
   .sub-desc { 
-    font-size: 0.8rem; 
+    font-size: 0.85rem; 
   }
   
   .sub-check { 
-    font-size: 0.7rem; 
-    padding: 3px 8px; 
+    font-size: 0.75rem; 
+    padding: 4px 10px; 
   }
   
   .sub-capacidad {
-    font-size: 0.75rem;
-    padding: 8px 10px;
+    font-size: 0.8rem;
+    padding: 10px 12px;
   }
   
   .boton-reservar-modal { 
-    padding: 8px 16px; 
-    font-size: 0.8rem; 
+    padding: 10px 20px; 
+    font-size: 0.85rem; 
   }
   
   .nota-administracion {
-    font-size: 0.75rem;
+    font-size: 0.8rem;
     padding: 10px 12px;
   }
   
   .boton-cerrar-nuevo {
-    top: 10px;
-    right: 10px;
-    width: 36px;
-    height: 36px;
+    top: 12px;
+    right: 12px;
+    width: 38px;
+    height: 38px;
   }
   
   .boton-cerrar-nuevo svg {
