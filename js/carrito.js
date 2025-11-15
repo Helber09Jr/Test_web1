@@ -449,10 +449,9 @@ function construirMensajeWhatsApp(cliente, mozo, observacionGeneral) {
   mensaje += `  DETALLE DEL PEDIDO:\n`;
   mensaje += `━━━━━━━━━━━━━━━━━━━━━\n`;
   
-  let numeroItem = 1;
   carrito.forEach(item => {
-    mensaje += `${numeroItem}. ${item.nombre} S/ ${item.precio.toFixed(2)}\n`;
-    mensaje += `   Cantidad: ${item.cantidad}\n`;
+    // Cantidad junto al nombre del plato
+    mensaje += `•${item.cantidad} ${item.nombre} S/ ${item.precio.toFixed(2)}\n`;
     
     // Opciones
     if (item.opciones && Object.keys(item.opciones).length > 0) {
@@ -471,8 +470,6 @@ function construirMensajeWhatsApp(cliente, mozo, observacionGeneral) {
     if (item.observacion) {
       mensaje += `   Nota: ${item.observacion}\n`;
     }
-    
-    numeroItem++;
   });
   
   // Observación general
