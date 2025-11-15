@@ -80,46 +80,58 @@ function inicializarEventos() {
   const btnMenu = document.querySelector('.boton-menu-movil');
   const listaNav = document.querySelector('.lista-navegacion');
   
-  btnMenu.addEventListener('click', () => {
-    btnMenu.classList.toggle('activo');
-    listaNav.classList.toggle('mostrar');
-    const expandido = btnMenu.classList.contains('activo');
-    btnMenu.setAttribute('aria-expanded', expandido);
-  });
+  if (btnMenu && listaNav) {
+    btnMenu.onclick = () => {
+      btnMenu.classList.toggle('activo');
+      listaNav.classList.toggle('mostrar');
+      const expandido = btnMenu.classList.contains('activo');
+      btnMenu.setAttribute('aria-expanded', expandido);
+    };
+  }
 
   // Buscador
   const buscador = document.getElementById('buscadorPlatos');
   const btnLimpiar = document.getElementById('btnLimpiarBusqueda');
   
-  buscador.addEventListener('input', (e) => {
-    const valor = e.target.value.trim();
-    btnLimpiar.style.display = valor ? 'block' : 'none';
-    filtrarYRenderizarPlatos();
-  });
+  if (buscador) {
+    buscador.oninput = (e) => {
+      const valor = e.target.value.trim();
+      if (btnLimpiar) {
+        btnLimpiar.style.display = valor ? 'block' : 'none';
+      }
+      filtrarYRenderizarPlatos();
+    };
+  }
   
-  btnLimpiar.addEventListener('click', () => {
-    buscador.value = '';
-    btnLimpiar.style.display = 'none';
-    filtrarYRenderizarPlatos();
-  });
+  if (btnLimpiar) {
+    btnLimpiar.onclick = () => {
+      buscador.value = '';
+      btnLimpiar.style.display = 'none';
+      filtrarYRenderizarPlatos();
+    };
+  }
 
   // Toggle de vista
   const btnDetallada = document.getElementById('btnVistaDetallada');
   const btnSimple = document.getElementById('btnVistaSimple');
   
-  btnDetallada.addEventListener('click', () => {
-    vistaActual = 'detallada';
-    btnDetallada.classList.add('activo');
-    btnSimple.classList.remove('activo');
-    renderizarPlatos();
-  });
+  if (btnDetallada) {
+    btnDetallada.onclick = () => {
+      vistaActual = 'detallada';
+      btnDetallada.classList.add('activo');
+      if (btnSimple) btnSimple.classList.remove('activo');
+      renderizarPlatos();
+    };
+  }
   
-  btnSimple.addEventListener('click', () => {
-    vistaActual = 'simple';
-    btnSimple.classList.add('activo');
-    btnDetallada.classList.remove('activo');
-    renderizarPlatos();
-  });
+  if (btnSimple) {
+    btnSimple.onclick = () => {
+      vistaActual = 'simple';
+      btnSimple.classList.add('activo');
+      if (btnDetallada) btnDetallada.classList.remove('activo');
+      renderizarPlatos();
+    };
+  }
 
   // Modal de personalización
   inicializarModalPlato();
@@ -134,7 +146,7 @@ function inicializarEventos() {
 
 function renderizarCategorias() {
   const contenedor = document.getElementById('filtrosCategorias');
-  if (!datosMenu || !datosMenu.categorias) return;
+  if (!datosMenu || !datosMenu.categorias || !contenedor) return;
   
   let html = `
     <button class="filtro-categoria activo" data-categoria="todos" role="tab" aria-selected="true">
@@ -155,10 +167,9 @@ function renderizarCategorias() {
   contenedor.innerHTML = html;
   
   // Event listeners para filtros
-  const botones = contenedor.querySelectorAll('.filtro-categoria');
-  botones.forEach(boton => {
-    boton.addEventListener('click', () => {
-      botones.forEach(b => {
+  contenedor.querySelectorAll('.filtro-categoria').forEach(boton => {
+    boton.onclick = () => {
+      contenedor.querySelectorAll('.filtro-categoria').forEach(b => {
         b.classList.remove('activo');
         b.setAttribute('aria-selected', 'false');
       });
@@ -166,7 +177,7 @@ function renderizarCategorias() {
       boton.setAttribute('aria-selected', 'true');
       categoriaActual = boton.getAttribute('data-categoria');
       filtrarYRenderizarPlatos();
-    });
+    };
   });
 }
 
@@ -177,7 +188,8 @@ function renderizarCategorias() {
 function filtrarYRenderizarPlatos() {
   if (!datosMenu || !datosMenu.platos) return;
   
-  const busqueda = document.getElementById('buscadorPlatos').value.toLowerCase().trim();
+  const buscador = document.getElementById('buscadorPlatos');
+  const busqueda = buscador ? buscador.value.toLowerCase().trim() : '';
   
   platosFiltrados = datosMenu.platos.filter(plato => {
     // Filtro por categoría
@@ -199,13 +211,15 @@ function renderizarPlatos() {
   const grilla = document.getElementById('grillaPlatos');
   const sinResultados = document.getElementById('sinResultados');
   
+  if (!grilla) return;
+  
   if (platosFiltrados.length === 0) {
     grilla.innerHTML = '';
-    sinResultados.style.display = 'block';
+    if (sinResultados) sinResultados.style.display = 'block';
     return;
   }
   
-  sinResultados.style.display = 'none';
+  if (sinResultados) sinResultados.style.display = 'none';
   
   if (vistaActual === 'detallada') {
     grilla.classList.remove('vista-simple');
@@ -274,55 +288,57 @@ function crearTarjetaSimple(plato) {
 
 function agregarEventListenersPlatos() {
   // Botones de agregar rápido (vista detallada)
-  const botonesAgregar = document.querySelectorAll('.btn-agregar-rapido');
-  botonesAgregar.forEach(boton => {
-    boton.addEventListener('click', (e) => {
+  document.querySelectorAll('.btn-agregar-rapido').forEach(boton => {
+    boton.onclick = (e) => {
       e.stopPropagation();
       const platoId = parseInt(boton.getAttribute('data-plato-id'));
       abrirModalPlato(platoId);
-    });
+    };
   });
   
   // Botones de agregar simple
-  const botonesSimple = document.querySelectorAll('.btn-agregar-simple');
-  botonesSimple.forEach(boton => {
-    boton.addEventListener('click', (e) => {
+  document.querySelectorAll('.btn-agregar-simple').forEach(boton => {
+    boton.onclick = (e) => {
       e.stopPropagation();
       const platoId = parseInt(boton.getAttribute('data-plato-id'));
       abrirModalPlato(platoId);
-    });
+    };
   });
   
   // Botones de vista previa (ojo)
-  const botonesVistaPrevia = document.querySelectorAll('.btn-vista-previa');
-  botonesVistaPrevia.forEach(boton => {
-    boton.addEventListener('click', (e) => {
+  document.querySelectorAll('.btn-vista-previa').forEach(boton => {
+    boton.onclick = (e) => {
       e.stopPropagation();
       const platoId = parseInt(boton.getAttribute('data-plato-id'));
       abrirModalVistaPrevia(platoId);
-    });
+    };
   });
   
   // Click en tarjetas (abre modal de personalización)
-  const tarjetas = document.querySelectorAll('.tarjeta-plato, .tarjeta-plato-simple');
-  tarjetas.forEach(tarjeta => {
-    tarjeta.addEventListener('click', () => {
-      const platoId = parseInt(tarjeta.getAttribute('data-plato-id'));
-      abrirModalPlato(platoId);
-    });
-    
-    tarjeta.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
+  document.querySelectorAll('.tarjeta-plato').forEach(tarjeta => {
+    tarjeta.onclick = (e) => {
+      if (!e.target.closest('button')) {
         const platoId = parseInt(tarjeta.getAttribute('data-plato-id'));
         abrirModalPlato(platoId);
       }
-    });
+    };
+  });
+  
+  document.querySelectorAll('.tarjeta-plato-simple').forEach(tarjeta => {
+    tarjeta.onclick = (e) => {
+      if (!e.target.closest('button')) {
+        const platoId = parseInt(tarjeta.getAttribute('data-plato-id'));
+        abrirModalPlato(platoId);
+      }
+    };
   });
 }
 
 function actualizarContador() {
-  document.getElementById('numResultados').textContent = platosFiltrados.length;
+  const contador = document.getElementById('numResultados');
+  if (contador) {
+    contador.textContent = platosFiltrados.length;
+  }
 }
 
 // ==========================================================
@@ -331,20 +347,29 @@ function actualizarContador() {
 
 function inicializarModalVistaPrevia() {
   const modal = document.getElementById('modalVistaPrevia');
+  if (!modal) return;
+  
   const btnCerrar = document.getElementById('btnCerrarVistaPrevia');
   const overlay = modal.querySelector('.modal-overlay-vista');
   const btnAgregar = document.getElementById('btnAgregarDesdeVista');
   
-  btnCerrar.addEventListener('click', cerrarModalVistaPrevia);
-  overlay.addEventListener('click', cerrarModalVistaPrevia);
+  if (btnCerrar) {
+    btnCerrar.onclick = cerrarModalVistaPrevia;
+  }
   
-  btnAgregar.addEventListener('click', () => {
-    const platoId = parseInt(btnAgregar.getAttribute('data-plato-id'));
-    cerrarModalVistaPrevia();
-    setTimeout(() => {
-      abrirModalPlato(platoId);
-    }, 300);
-  });
+  if (overlay) {
+    overlay.onclick = cerrarModalVistaPrevia;
+  }
+  
+  if (btnAgregar) {
+    btnAgregar.onclick = () => {
+      const platoId = parseInt(btnAgregar.getAttribute('data-plato-id'));
+      cerrarModalVistaPrevia();
+      setTimeout(() => {
+        abrirModalPlato(platoId);
+      }, 300);
+    };
+  }
   
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && modal.classList.contains('activo')) {
@@ -354,17 +379,28 @@ function inicializarModalVistaPrevia() {
 }
 
 function abrirModalVistaPrevia(platoId) {
+  if (!datosMenu || !datosMenu.platos) return;
+  
   const plato = datosMenu.platos.find(p => p.id === platoId);
   if (!plato) return;
   
   const modal = document.getElementById('modalVistaPrevia');
+  if (!modal) return;
   
-  document.getElementById('vistaPreviaImg').src = plato.imagen;
-  document.getElementById('vistaPreviaImg').alt = plato.nombre;
-  document.getElementById('vistaPreviaTitulo').textContent = plato.nombre;
-  document.getElementById('vistaPreviaPrecio').textContent = `S/ ${plato.precio.toFixed(2)}`;
-  document.getElementById('vistaPreviaDescripcion').textContent = plato.descripcion;
-  document.getElementById('btnAgregarDesdeVista').setAttribute('data-plato-id', platoId);
+  const img = document.getElementById('vistaPreviaImg');
+  const titulo = document.getElementById('vistaPreviaTitulo');
+  const precio = document.getElementById('vistaPreviaPrecio');
+  const descripcion = document.getElementById('vistaPreviaDescripcion');
+  const btnAgregar = document.getElementById('btnAgregarDesdeVista');
+  
+  if (img) {
+    img.src = plato.imagen;
+    img.alt = plato.nombre;
+  }
+  if (titulo) titulo.textContent = plato.nombre;
+  if (precio) precio.textContent = `S/ ${plato.precio.toFixed(2)}`;
+  if (descripcion) descripcion.textContent = plato.descripcion;
+  if (btnAgregar) btnAgregar.setAttribute('data-plato-id', platoId);
   
   modal.classList.add('activo');
   document.body.style.overflow = 'hidden';
@@ -372,8 +408,10 @@ function abrirModalVistaPrevia(platoId) {
 
 function cerrarModalVistaPrevia() {
   const modal = document.getElementById('modalVistaPrevia');
-  modal.classList.remove('activo');
-  document.body.style.overflow = 'auto';
+  if (modal) {
+    modal.classList.remove('activo');
+    document.body.style.overflow = 'auto';
+  }
 }
 
 // ==========================================================
@@ -382,39 +420,57 @@ function cerrarModalVistaPrevia() {
 
 function inicializarModalPlato() {
   const modal = document.getElementById('modalPlato');
+  if (!modal) return;
+  
   const btnCerrar = document.getElementById('btnCerrarModalPlato');
   const overlay = modal.querySelector('.modal-overlay-plato');
   
-  btnCerrar.addEventListener('click', cerrarModalPlato);
-  overlay.addEventListener('click', cerrarModalPlato);
+  if (btnCerrar) {
+    btnCerrar.onclick = cerrarModalPlato;
+  }
+  
+  if (overlay) {
+    overlay.onclick = cerrarModalPlato;
+  }
   
   // Controles de cantidad
   const btnRestar = document.getElementById('btnRestarCantidad');
   const btnSumar = document.getElementById('btnSumarCantidad');
   
-  btnRestar.addEventListener('click', () => {
-    if (cantidadSeleccionada > 1) {
-      cantidadSeleccionada--;
-      actualizarCantidadModal();
-    }
-  });
+  if (btnRestar) {
+    btnRestar.onclick = () => {
+      if (cantidadSeleccionada > 1) {
+        cantidadSeleccionada--;
+        actualizarCantidadModal();
+      }
+    };
+  }
   
-  btnSumar.addEventListener('click', () => {
-    if (cantidadSeleccionada < 99) {
-      cantidadSeleccionada++;
-      actualizarCantidadModal();
-    }
-  });
+  if (btnSumar) {
+    btnSumar.onclick = () => {
+      if (cantidadSeleccionada < 99) {
+        cantidadSeleccionada++;
+        actualizarCantidadModal();
+      }
+    };
+  }
   
   // Observación
   const observacion = document.getElementById('observacionPlato');
-  observacion.addEventListener('input', () => {
-    document.getElementById('contadorObservacion').textContent = observacion.value.length;
-  });
+  if (observacion) {
+    observacion.oninput = () => {
+      const contador = document.getElementById('contadorObservacion');
+      if (contador) {
+        contador.textContent = observacion.value.length;
+      }
+    };
+  }
   
   // Botón agregar al carrito
   const btnAgregar = document.getElementById('btnAgregarCarrito');
-  btnAgregar.addEventListener('click', agregarAlCarrito);
+  if (btnAgregar) {
+    btnAgregar.onclick = agregarAlCarrito;
+  }
   
   // Cerrar con Escape
   document.addEventListener('keydown', (e) => {
@@ -425,6 +481,8 @@ function inicializarModalPlato() {
 }
 
 function abrirModalPlato(platoId) {
+  if (!datosMenu || !datosMenu.platos) return;
+  
   const plato = datosMenu.platos.find(p => p.id === platoId);
   if (!plato) return;
   
@@ -432,13 +490,21 @@ function abrirModalPlato(platoId) {
   cantidadSeleccionada = 1;
   
   const modal = document.getElementById('modalPlato');
+  if (!modal) return;
   
   // Llenar información básica
-  document.getElementById('modalPlatoImg').src = plato.imagen;
-  document.getElementById('modalPlatoImg').alt = plato.nombre;
-  document.getElementById('modalPlatoTitulo').textContent = plato.nombre;
-  document.getElementById('modalPlatoPrecio').textContent = `S/ ${plato.precio.toFixed(2)}`;
-  document.getElementById('modalPlatoDescripcion').textContent = plato.descripcion;
+  const img = document.getElementById('modalPlatoImg');
+  const titulo = document.getElementById('modalPlatoTitulo');
+  const precio = document.getElementById('modalPlatoPrecio');
+  const descripcion = document.getElementById('modalPlatoDescripcion');
+  
+  if (img) {
+    img.src = plato.imagen;
+    img.alt = plato.nombre;
+  }
+  if (titulo) titulo.textContent = plato.nombre;
+  if (precio) precio.textContent = `S/ ${plato.precio.toFixed(2)}`;
+  if (descripcion) descripcion.textContent = plato.descripcion;
   
   // Renderizar opciones
   renderizarOpciones(plato);
@@ -446,11 +512,19 @@ function abrirModalPlato(platoId) {
   // Renderizar guarniciones
   renderizarGuarniciones(plato);
   
-  // Mostrar/ocultar observación
+  // Mostrar observación
   const observacionContainer = document.getElementById('modalObservacionContainer');
-  observacionContainer.style.display = 'block';
-  document.getElementById('observacionPlato').value = '';
-  document.getElementById('contadorObservacion').textContent = '0';
+  if (observacionContainer) {
+    observacionContainer.style.display = 'block';
+  }
+  const observacionInput = document.getElementById('observacionPlato');
+  if (observacionInput) {
+    observacionInput.value = '';
+  }
+  const contadorObs = document.getElementById('contadorObservacion');
+  if (contadorObs) {
+    contadorObs.textContent = '0';
+  }
   
   // Resetear cantidad
   actualizarCantidadModal();
@@ -462,13 +536,17 @@ function abrirModalPlato(platoId) {
 
 function cerrarModalPlato() {
   const modal = document.getElementById('modalPlato');
-  modal.classList.remove('activo');
-  document.body.style.overflow = 'auto';
+  if (modal) {
+    modal.classList.remove('activo');
+    document.body.style.overflow = 'auto';
+  }
   platoSeleccionado = null;
 }
 
 function renderizarOpciones(plato) {
   const contenedor = document.getElementById('modalOpcionesContainer');
+  if (!contenedor) return;
+  
   contenedor.innerHTML = '';
   
   if (!plato.opciones || Object.keys(plato.opciones).length === 0) {
@@ -522,6 +600,8 @@ function renderizarGuarniciones(plato) {
   const contenedor = document.getElementById('modalGuarnicionesContainer');
   const lista = document.getElementById('listaGuarniciones');
   
+  if (!contenedor || !lista) return;
+  
   if (!plato.guarniciones || !datosMenu.guarniciones) {
     contenedor.style.display = 'none';
     return;
@@ -566,24 +646,34 @@ function actualizarContadorGuarniciones() {
   const seleccionadas = Array.from(checkboxes).filter(cb => cb.checked).length;
   const contador = document.getElementById('contadorGuarniciones');
   
-  contador.textContent = `${seleccionadas}/2 seleccionadas`;
-  
-  if (seleccionadas >= 2) {
-    contador.classList.add('limite');
-  } else {
-    contador.classList.remove('limite');
+  if (contador) {
+    contador.textContent = `${seleccionadas}/2 seleccionadas`;
+    
+    if (seleccionadas >= 2) {
+      contador.classList.add('limite');
+    } else {
+      contador.classList.remove('limite');
+    }
   }
 }
 
 function actualizarCantidadModal() {
-  document.getElementById('cantidadPlato').textContent = cantidadSeleccionada;
+  const cantidadElem = document.getElementById('cantidadPlato');
+  if (cantidadElem) {
+    cantidadElem.textContent = cantidadSeleccionada;
+  }
   
   const btnRestar = document.getElementById('btnRestarCantidad');
-  btnRestar.disabled = cantidadSeleccionada <= 1;
+  if (btnRestar) {
+    btnRestar.disabled = cantidadSeleccionada <= 1;
+  }
   
   if (platoSeleccionado) {
     const subtotal = platoSeleccionado.precio * cantidadSeleccionada;
-    document.getElementById('modalSubtotal').textContent = `S/ ${subtotal.toFixed(2)}`;
+    const subtotalElem = document.getElementById('modalSubtotal');
+    if (subtotalElem) {
+      subtotalElem.textContent = `S/ ${subtotal.toFixed(2)}`;
+    }
   }
 }
 
@@ -614,7 +704,8 @@ function agregarAlCarrito() {
   });
   
   // Obtener observación
-  const observacion = document.getElementById('observacionPlato').value.trim();
+  const observacionInput = document.getElementById('observacionPlato');
+  const observacion = observacionInput ? observacionInput.value.trim() : '';
   
   // Crear item del carrito
   const item = {
@@ -648,15 +739,23 @@ function mostrarToast(mensaje) {
   const toast = document.getElementById('toastNotificacion');
   const toastMensaje = document.getElementById('toastMensaje');
   
-  toastMensaje.textContent = mensaje;
-  toast.classList.add('mostrar');
-  
-  setTimeout(() => {
-    toast.classList.remove('mostrar');
-  }, 3000);
+  if (toast && toastMensaje) {
+    toastMensaje.textContent = mensaje;
+    toast.classList.add('mostrar');
+    
+    setTimeout(() => {
+      toast.classList.remove('mostrar');
+    }, 3000);
+  }
 }
 
-// Hacer la función global
+// ==========================================================
+// EXPORTAR FUNCIONES GLOBALES
+// ==========================================================
+
 window.mostrarToast = mostrarToast;
 window.verificarLimiteGuarniciones = verificarLimiteGuarniciones;
-
+window.abrirModalPlato = abrirModalPlato;
+window.abrirModalVistaPrevia = abrirModalVistaPrevia;
+window.cerrarModalPlato = cerrarModalPlato;
+window.cerrarModalVistaPrevia = cerrarModalVistaPrevia;
