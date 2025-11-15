@@ -1338,7 +1338,7 @@ button {
   text-align: right;
 }
 
-/* Cantidad y Subtotal en línea - COMPACTO */
+/* Cantidad y Subtotal - PRECIO DEBAJO */
 .modal-cantidad-subtotal {
   display: flex;
   justify-content: space-between;
@@ -1412,21 +1412,22 @@ button {
   text-align: center;
 }
 
-/* Subtotal - COMPACTO EN UNA LÍNEA */
+/* Subtotal - PRECIO DEBAJO DEL TEXTO */
 .modal-subtotal {
   display: flex;
-  align-items: center;
-  gap: 8px;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
 }
 
 .modal-subtotal span:first-child {
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   font-weight: 600;
   color: #666;
 }
 
 .subtotal-valor {
-  font-size: 1.1rem;
+  font-size: 1.15rem;
   font-weight: 800;
   color: var(--azul-principal);
   white-space: nowrap;
@@ -2491,7 +2492,7 @@ button {
     height: 40px;
   }
   
-  /* Subtotal compacto en móvil pequeño */
+  /* Subtotal compacto en móvil pequeño - PRECIO DEBAJO */
   .modal-cantidad-subtotal {
     padding: 8px 10px;
   }
@@ -2517,11 +2518,11 @@ button {
   }
   
   .modal-subtotal {
-    gap: 6px;
+    gap: 1px;
   }
   
   .modal-subtotal span:first-child {
-    font-size: 0.7rem;
+    font-size: 0.65rem;
   }
   
   .subtotal-valor {
@@ -2568,4 +2569,4 @@ button {
     padding: 12px 20px;
     font-size: 0.9rem;
   }
-}
+                              }
