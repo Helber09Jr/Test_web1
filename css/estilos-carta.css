@@ -645,6 +645,45 @@ button {
   text-transform: uppercase;
 }
 
+/* Botón vista previa (ojo) */
+.btn-vista-previa {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 36px;
+  height: 36px;
+  background: rgba(255, 255, 255, 0.95);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  z-index: 5;
+}
+
+.btn-vista-previa svg {
+  width: 18px;
+  height: 18px;
+  stroke: var(--azul-principal);
+}
+
+.btn-vista-previa:hover {
+  background: var(--azul-principal);
+  transform: scale(1.1);
+}
+
+.btn-vista-previa:hover svg {
+  stroke: var(--blanco);
+}
+
+.btn-vista-previa:focus-visible {
+  outline: 3px solid var(--dorado-claro);
+  outline-offset: 2px;
+}
+
 .tarjeta-plato-contenido {
   padding: 20px;
 }
@@ -819,6 +858,139 @@ button {
 
 .sin-resultados p {
   font-size: 0.95rem;
+}
+
+/* ==========================================================
+   MODAL DE VISTA PREVIA (IMAGEN GRANDE)
+   ========================================================== */
+.modal-vista-previa {
+  position: fixed;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 2500;
+  padding: 20px;
+}
+
+.modal-vista-previa.activo {
+  display: flex;
+  animation: fadeIn 0.3s ease;
+}
+
+.modal-overlay-vista {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(10px);
+}
+
+.modal-contenido-vista {
+  position: relative;
+  background: var(--blanco);
+  border-radius: 24px;
+  width: 100%;
+  max-width: 600px;
+  overflow: hidden;
+  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.5);
+  animation: slideUp 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.boton-cerrar-vista {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: rgba(255, 255, 255, 0.95);
+  color: #333;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.boton-cerrar-vista svg {
+  width: 22px;
+  height: 22px;
+}
+
+.boton-cerrar-vista:hover { 
+  background: var(--rojo-error);
+  color: var(--blanco);
+  transform: scale(1.1) rotate(90deg); 
+}
+
+.modal-vista-imagen {
+  width: 100%;
+  height: 350px;
+  overflow: hidden;
+  background: #f0f0f0;
+}
+
+.modal-vista-imagen img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.modal-vista-info {
+  padding: 25px;
+}
+
+.modal-vista-nombre {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--azul-principal);
+  margin-bottom: 8px;
+  font-family: 'Playfair Display', serif;
+}
+
+.modal-vista-precio {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--dorado);
+  margin-bottom: 15px;
+}
+
+.modal-vista-descripcion {
+  font-size: 0.95rem;
+  color: #555;
+  line-height: 1.7;
+  margin-bottom: 20px;
+}
+
+.btn-agregar-desde-vista {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  padding: 14px;
+  background: var(--azul-principal);
+  color: var(--blanco);
+  font-size: 1rem;
+  font-weight: 700;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-agregar-desde-vista svg {
+  width: 22px;
+  height: 22px;
+}
+
+.btn-agregar-desde-vista:hover {
+  background: var(--azul-suave);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 82, 180, 0.4);
 }
 
 /* ==========================================================
@@ -1166,13 +1338,13 @@ button {
   text-align: right;
 }
 
-/* Cantidad y Subtotal en línea */
+/* Cantidad y Subtotal en línea - COMPACTO */
 .modal-cantidad-subtotal {
   display: flex;
   justify-content: space-between;
   align-items: center;
   background: linear-gradient(90deg, #e8f4ff, #fff);
-  padding: 12px 15px;
+  padding: 10px 12px;
   border-radius: 10px;
   border-left: 4px solid var(--azul-suave);
 }
@@ -1193,9 +1365,9 @@ button {
 .control-cantidad {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   background: var(--blanco);
-  padding: 5px 10px;
+  padding: 4px 8px;
   border-radius: 20px;
   border: 1px solid var(--gris-medio);
 }
@@ -1204,8 +1376,8 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 30px;
-  height: 30px;
+  width: 28px;
+  height: 28px;
   background: var(--gris-claro);
   border: none;
   border-radius: 50%;
@@ -1214,8 +1386,8 @@ button {
 }
 
 .btn-cantidad svg {
-  width: 16px;
-  height: 16px;
+  width: 14px;
+  height: 14px;
   stroke: #555;
 }
 
@@ -1233,30 +1405,31 @@ button {
 }
 
 .cantidad-valor {
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: 700;
   color: var(--azul-principal);
-  min-width: 25px;
+  min-width: 24px;
   text-align: center;
 }
 
-/* Subtotal */
+/* Subtotal - COMPACTO EN UNA LÍNEA */
 .modal-subtotal {
   display: flex;
-  flex-direction: column;
-  align-items: flex-end;
+  align-items: center;
+  gap: 8px;
 }
 
 .modal-subtotal span:first-child {
-  font-size: 0.75rem;
+  font-size: 0.8rem;
   font-weight: 600;
   color: #666;
 }
 
 .subtotal-valor {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   font-weight: 800;
   color: var(--azul-principal);
+  white-space: nowrap;
 }
 
 /* Botón agregar al carrito */
@@ -1267,7 +1440,7 @@ button {
   gap: 8px;
   width: 100%;
   padding: 12px;
-  background: linear-gradient(135deg,var(--azul-principal) 100%);
+  background: var(--azul-principal);
   color: var(--blanco);
   font-size: 0.95rem;
   font-weight: 700;
@@ -1275,7 +1448,7 @@ button {
   border-radius: 10px;
   cursor: pointer;
   transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-  box-shadow: 0 6px 20px rgba(200, 169, 94, 0.4);
+  box-shadow: 0 6px 20px rgba(0, 82, 180, 0.3);
 }
 
 .boton-agregar-carrito svg {
@@ -1285,7 +1458,7 @@ button {
 
 .boton-agregar-carrito:hover {
   transform: translateY(-3px);
-  box-shadow: 0 10px 30px rgba(200, 169, 94, 0.5);
+  box-shadow: 0 10px 30px rgba(0, 82, 180, 0.4);
 }
 
 .boton-agregar-carrito:active {
@@ -1981,6 +2154,19 @@ button {
     height: 18px;
   }
   
+  /* Botón vista previa más pequeño en móvil */
+  .btn-vista-previa {
+    width: 32px;
+    height: 32px;
+    top: 10px;
+    right: 10px;
+  }
+  
+  .btn-vista-previa svg {
+    width: 16px;
+    height: 16px;
+  }
+  
   .controles-carta {
     flex-direction: column;
     align-items: stretch;
@@ -1992,6 +2178,27 @@ button {
   
   .toggle-vista {
     align-self: flex-end;
+  }
+  
+  /* Modal vista previa responsive */
+  .modal-contenido-vista {
+    max-width: 95%;
+  }
+  
+  .modal-vista-imagen {
+    height: 280px;
+  }
+  
+  .modal-vista-info {
+    padding: 20px;
+  }
+  
+  .modal-vista-nombre {
+    font-size: 1.3rem;
+  }
+  
+  .modal-vista-precio {
+    font-size: 1.2rem;
   }
   
   /* Modal responsive FORZADO a 2 columnas horizontales */
@@ -2107,6 +2314,19 @@ button {
     height: 120px;
   }
   
+  /* Botón vista previa aún más pequeño */
+  .btn-vista-previa {
+    width: 28px;
+    height: 28px;
+    top: 8px;
+    right: 8px;
+  }
+  
+  .btn-vista-previa svg {
+    width: 14px;
+    height: 14px;
+  }
+  
   .tarjeta-plato-contenido {
     padding: 10px;
   }
@@ -2148,6 +2368,38 @@ button {
   .filtro-categoria {
     padding: 8px 16px;
     font-size: 0.85rem;
+  }
+  
+  /* Modal vista previa en móvil pequeño */
+  .modal-contenido-vista {
+    border-radius: 16px;
+  }
+  
+  .modal-vista-imagen {
+    height: 220px;
+  }
+  
+  .modal-vista-info {
+    padding: 16px;
+  }
+  
+  .modal-vista-nombre {
+    font-size: 1.2rem;
+  }
+  
+  .modal-vista-precio {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+  }
+  
+  .modal-vista-descripcion {
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+  }
+  
+  .btn-agregar-desde-vista {
+    padding: 12px;
+    font-size: 0.95rem;
   }
   
   /* Modal compacto FORZADO a 2 columnas para móvil pequeño */
@@ -2239,31 +2491,37 @@ button {
     height: 40px;
   }
   
+  /* Subtotal compacto en móvil pequeño */
   .modal-cantidad-subtotal {
-    padding: 10px 12px;
+    padding: 8px 10px;
   }
   
   .control-cantidad {
-    padding: 4px 8px;
-    gap: 8px;
+    padding: 3px 6px;
+    gap: 6px;
   }
   
   .btn-cantidad {
-    width: 26px;
-    height: 26px;
+    width: 24px;
+    height: 24px;
   }
   
   .btn-cantidad svg {
-    width: 14px;
-    height: 14px;
+    width: 12px;
+    height: 12px;
   }
   
   .cantidad-valor {
-    font-size: 1rem;
+    font-size: 0.9rem;
+    min-width: 20px;
+  }
+  
+  .modal-subtotal {
+    gap: 6px;
   }
   
   .modal-subtotal span:first-child {
-    font-size: 0.65rem;
+    font-size: 0.7rem;
   }
   
   .subtotal-valor {
