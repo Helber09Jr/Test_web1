@@ -236,27 +236,40 @@ a {
   border-radius: 4px;
 }
 
+/* BOTÓN HAMBURGUESA MEJORADO - Igual que carta.html */
 .boton-menu-movil {
   display: none;
   flex-direction: column;
-  gap: 5px;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
   background: none;
   border: none;
   cursor: pointer;
-  padding: 8px;
+  padding: 10px;
+  width: 44px;
+  height: 44px;
 }
 
 .boton-menu-movil .linea {
-  width: 28px;
-  height: 3px;
+  width: 24px;
+  height: 2px;
   background: var(--dorado-claro);
   border-radius: 2px;
-  transition: 0.3s;
+  transition: all 0.3s ease;
+  transform-origin: center;
 }
 
-.boton-menu-movil.activo .linea:nth-child(1) { transform: rotate(45deg) translate(6px, 6px); }
-.boton-menu-movil.activo .linea:nth-child(2) { opacity: 0; }
-.boton-menu-movil.activo .linea:nth-child(3) { transform: rotate(-45deg) translate(6px, -6px); }
+.boton-menu-movil.activo .linea:nth-child(1) { 
+  transform: rotate(45deg) translate(5px, 5px); 
+}
+.boton-menu-movil.activo .linea:nth-child(2) { 
+  opacity: 0; 
+  transform: scaleX(0);
+}
+.boton-menu-movil.activo .linea:nth-child(3) { 
+  transform: rotate(-45deg) translate(6px, -6px); 
+}
 
 .seccion-hero {
   position: relative;
@@ -576,6 +589,9 @@ a {
   outline-offset: 4px;
 }
 
+/* ==========================================================
+   MODAL DE INSTALACIONES - MEJORADO PARA 2 COLUMNAS EN MÓVIL
+   ========================================================== */
 .modal-instalacion {
   position: fixed;
   inset: 0;
@@ -699,6 +715,7 @@ a {
   border-color: var(--dorado-claro);
 }
 
+/* MODAL BODY - 2 COLUMNAS HORIZONTALES */
 .modal-body-mejorado {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -750,6 +767,8 @@ a {
   flex-direction: column;
   gap: 15px;
   background: var(--blanco);
+  overflow-y: auto;
+  max-height: 380px;
 }
 
 .sub-instalacion-info h3 {
@@ -1224,6 +1243,11 @@ a {
   background: linear-gradient(180deg, var(--dorado), #b8963a); 
 }
 
+/* ==========================================================
+   RESPONSIVE DESIGN
+   ========================================================== */
+
+/* Tablet */
 @media (max-width: 900px) {
   .lista-navegacion { 
     display: none; 
@@ -1238,15 +1262,31 @@ a {
     box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2); 
   }
   .lista-navegacion.mostrar { display: flex; }
-  .enlace-nav { padding: 16px; border-bottom: 1px solid rgba(225, 194, 148, 0.1); }
+  .enlace-nav { 
+    padding: 14px 16px; 
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1); 
+    display: block;
+    width: 100%;
+  }
+  .enlace-nav::after {
+    display: none;
+  }
   .boton-menu-movil { display: flex; }
   .grilla-contacto { grid-template-columns: 1fr; gap: 40px; }
   .contenedor-info-compacto { grid-template-columns: 1fr; gap: 40px; }
-  .modal-body-mejorado { grid-template-columns: 1fr; }
-  .sub-instalacion-imagen { height: 280px; }
-  .sub-instalacion-info { padding: 25px; }
+  
+  /* MODAL EN 2 COLUMNAS PARA TABLET */
+  .modal-body-mejorado { 
+    grid-template-columns: 1fr 1fr; 
+  }
+  .sub-instalacion-imagen { height: 320px; }
+  .sub-instalacion-info { 
+    padding: 25px; 
+    max-height: 320px;
+  }
 }
 
+/* Mobile */
 @media (max-width: 768px) {
   .titulo-principal { font-size: 2.2rem; }
   .titulo-seccion { font-size: 1.9rem; }
@@ -1259,9 +1299,57 @@ a {
   .mapa-embebido { height: 250px; }
   .modal-header-mejorado h2 { font-size: 1.4rem; }
   .tab-sub { padding: 6px 14px; font-size: 0.8rem; }
-  .sub-instalacion-imagen { height: 240px; }
+  
+  /* MODAL EN 2 COLUMNAS FORZADO PARA MÓVIL */
+  .modal-contenido-mejorado {
+    max-width: 98%;
+    max-height: 88vh;
+    border-radius: 16px;
+  }
+  
+  .modal-body-mejorado {
+    display: grid !important;
+    grid-template-columns: 180px 1fr !important;
+    grid-template-rows: 1fr !important;
+  }
+  
+  .sub-instalacion-imagen {
+    height: 100% !important;
+    min-height: 280px !important;
+  }
+  
+  .sub-instalacion-info {
+    padding: 20px;
+    gap: 12px;
+    max-height: none;
+    overflow-y: auto;
+  }
+  
+  .sub-instalacion-info h3 {
+    font-size: 1.2rem;
+  }
+  
+  .sub-desc {
+    font-size: 0.85rem;
+  }
+  
+  .sub-check {
+    font-size: 0.75rem;
+    padding: 4px 10px;
+  }
+  
+  .sub-capacidad {
+    font-size: 0.8rem;
+    padding: 10px 12px;
+  }
+  
+  .boton-reservar-modal {
+    padding: 10px 20px;
+    font-size: 0.85rem;
+  }
 }
 
+/* Mobile pequeño */
 @media (max-width: 480px) {
   .nombre-club { font-size: 1.2rem; letter-spacing: 1px; }
   .logo-club { width: 48px; height: 48px; }
@@ -1274,12 +1362,80 @@ a {
   .icono-red-premium { width: 48px; height: 48px; }
   .icono-red-premium svg { width: 22px; height: 22px; }
   .mapa-embebido { height: 220px; }
-  .modal-contenido-mejorado { border-radius: 16px; }
-  .modal-header-mejorado { padding: 15px 20px 12px; }
-  .modal-body-mejorado { padding: 15px; gap: 15px; }
-  .sub-instalacion-imagen { height: 160px; }
-  .sub-instalacion-info h3 { font-size: 1.1rem; }
-  .sub-desc { font-size: 0.8rem; }
-  .sub-check { font-size: 0.7rem; padding: 3px 8px; }
-  .boton-reservar-modal { padding: 8px 20px; font-size: 0.8rem; }
-}
+  
+  /* MODAL EN 2 COLUMNAS COMPACTO PARA MÓVIL PEQUEÑO */
+  .modal-contenido-mejorado { 
+    border-radius: 14px; 
+    margin: 10px;
+  }
+  
+  .modal-header-mejorado { 
+    padding: 15px 20px 12px; 
+  }
+  
+  .modal-header-mejorado h2 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+  }
+  
+  .tab-sub {
+    padding: 5px 12px;
+    font-size: 0.7rem;
+  }
+  
+  .modal-body-mejorado {
+    display: grid !important;
+    grid-template-columns: 140px 1fr !important;
+    grid-template-rows: 1fr !important;
+  }
+  
+  .sub-instalacion-imagen { 
+    height: 100% !important;
+    min-height: 250px !important;
+  }
+  
+  .sub-instalacion-info {
+    padding: 15px;
+    gap: 10px;
+  }
+  
+  .sub-instalacion-info h3 { 
+    font-size: 1.1rem; 
+  }
+  
+  .sub-desc { 
+    font-size: 0.8rem; 
+  }
+  
+  .sub-check { 
+    font-size: 0.7rem; 
+    padding: 3px 8px; 
+  }
+  
+  .sub-capacidad {
+    font-size: 0.75rem;
+    padding: 8px 10px;
+  }
+  
+  .boton-reservar-modal { 
+    padding: 8px 16px; 
+    font-size: 0.8rem; 
+  }
+  
+  .nota-administracion {
+    font-size: 0.75rem;
+    padding: 10px 12px;
+  }
+  
+  .boton-cerrar-nuevo {
+    top: 10px;
+    right: 10px;
+    width: 36px;
+    height: 36px;
+  }
+  
+  .boton-cerrar-nuevo svg {
+    width: 18px;
+    height: 18px;
+  }
+  }
