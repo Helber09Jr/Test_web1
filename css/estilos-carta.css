@@ -1907,9 +1907,43 @@ button {
   .titulo-hero-carta { font-size: 2.2rem; }
   .hero-carta { height: 35vh; min-height: 250px; }
   
+  /* GRID DE PLATOS EN 2 COLUMNAS PARA MÓVIL */
   .grilla-platos {
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 15px;
+  }
+  
+  .tarjeta-plato-imagen {
+    height: 140px;
+  }
+  
+  .tarjeta-plato-contenido {
+    padding: 12px;
+  }
+  
+  .tarjeta-plato-nombre {
+    font-size: 0.95rem;
+    margin-bottom: 6px;
+  }
+  
+  .tarjeta-plato-descripcion {
+    font-size: 0.75rem;
+    margin-bottom: 10px;
+    -webkit-line-clamp: 2;
+  }
+  
+  .tarjeta-plato-precio {
+    font-size: 1.1rem;
+  }
+  
+  .btn-agregar-rapido {
+    width: 38px;
+    height: 38px;
+  }
+  
+  .btn-agregar-rapido svg {
+    width: 18px;
+    height: 18px;
   }
   
   .controles-carta {
@@ -1990,12 +2024,56 @@ button {
   .titulo-hero-carta { font-size: 1.8rem; }
   .subtitulo-hero-carta { font-size: 0.95rem; }
   
+  /* GRID DE PLATOS EN 2 COLUMNAS PARA MÓVIL PEQUEÑO */
   .grilla-platos {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 12px;
+  }
+  
+  .tarjeta-plato {
+    border-radius: 14px;
   }
   
   .tarjeta-plato-imagen {
-    height: 180px;
+    height: 120px;
+  }
+  
+  .tarjeta-plato-contenido {
+    padding: 10px;
+  }
+  
+  .tarjeta-plato-nombre {
+    font-size: 0.85rem;
+    margin-bottom: 5px;
+    line-height: 1.2;
+  }
+  
+  .tarjeta-plato-descripcion {
+    font-size: 0.7rem;
+    margin-bottom: 8px;
+    -webkit-line-clamp: 2;
+    line-height: 1.4;
+  }
+  
+  .tarjeta-plato-precio {
+    font-size: 1rem;
+  }
+  
+  .btn-agregar-rapido {
+    width: 34px;
+    height: 34px;
+  }
+  
+  .btn-agregar-rapido svg {
+    width: 16px;
+    height: 16px;
+  }
+  
+  .badge-categoria {
+    font-size: 0.6rem;
+    padding: 3px 8px;
+    top: 8px;
+    left: 8px;
   }
   
   .filtro-categoria {
@@ -2163,4 +2241,4 @@ button {
     padding: 12px 20px;
     font-size: 0.9rem;
   }
-}
+   }
