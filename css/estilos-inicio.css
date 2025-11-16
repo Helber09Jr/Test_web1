@@ -236,7 +236,6 @@ a {
   border-radius: 4px;
 }
 
-/* BOTÓN HAMBURGUESA MEJORADO - Igual que carta.html */
 .boton-menu-movil {
   display: none;
   flex-direction: column;
@@ -404,7 +403,6 @@ a {
   outline: 3px solid var(--dorado-claro);
   outline-offset: 4px;
 }
-
 .seccion-informacion {
   padding: 40px 20px;
   background: var(--blanco);
@@ -589,9 +587,6 @@ a {
   outline-offset: 4px;
 }
 
-/* ==========================================================
-   MODAL DE INSTALACIONES - MEJORADO PARA 2 COLUMNAS EN MÓVIL
-   ========================================================== */
 .modal-instalacion {
   position: fixed;
   inset: 0;
@@ -715,7 +710,6 @@ a {
   border-color: var(--dorado-claro);
 }
 
-/* MODAL BODY - 2 COLUMNAS HORIZONTALES */
 .modal-body-mejorado {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -851,7 +845,6 @@ a {
   border-left: 4px solid #ffc107;
   margin-top: 8px;
 }
-
 .seccion-convenios {
   padding: 50px 20px;
   background: linear-gradient(135deg, var(--gris-claro) 0%, var(--blanco) 100%);
@@ -1242,7 +1235,6 @@ a {
 ::-webkit-scrollbar-thumb:hover { 
   background: linear-gradient(180deg, var(--dorado), #b8963a); 
 }
-
 /* ==========================================================
    RESPONSIVE DESIGN
    ========================================================== */
@@ -1275,7 +1267,6 @@ a {
   .grilla-contacto { grid-template-columns: 1fr; gap: 40px; }
   .contenedor-info-compacto { grid-template-columns: 1fr; gap: 40px; }
   
-  /* MODAL EN 2 COLUMNAS PARA TABLET */
   .modal-body-mejorado { 
     grid-template-columns: 1fr 1fr; 
   }
@@ -1292,7 +1283,6 @@ a {
   .titulo-seccion { font-size: 1.9rem; }
   .seccion-hero { height: 70vh; min-height: 500px; }
   
-  /* GRILLA DE INSTALACIONES EN 2 COLUMNAS PARA MÓVIL */
   .grilla-instalaciones { 
     grid-template-columns: repeat(2, 1fr); 
     gap: 15px;
@@ -1336,13 +1326,74 @@ a {
     height: 14px;
   }
   
-  .grilla-eventos { grid-template-columns: repeat(2, 1fr); gap: 20px; }
-  .boton-whatsapp-flotante { width: 60px; height: 60px; bottom: 20px; right: 20px; }
-  .mapa-embebido { height: 250px; }
+  .grilla-eventos { 
+    grid-template-columns: repeat(2, 1fr); 
+    gap: 20px; 
+  }
+  
+  .seccion-convenios {
+    padding: 35px 20px;
+  }
+  
+  .seccion-convenios .titulo-seccion {
+    font-size: 1.6rem;
+  }
+  
+  .carrusel-convenios {
+    gap: 50px;
+    margin-top: 30px;
+  }
+  
+  .logo-convenio {
+    height: 60px;
+  }
+  
+  .pie-pagina {
+    padding: 35px 20px 25px;
+  }
+  
+  .grilla-contacto {
+    grid-template-columns: 1fr;
+    gap: 30px;
+    margin-bottom: 30px;
+  }
+  
+  .titulo-footer {
+    font-size: 1.4rem;
+    margin-bottom: 20px;
+  }
+  
+  .item-contacto {
+    margin-bottom: 16px;
+  }
+  
+  .item-contacto a {
+    font-size: 0.9rem;
+  }
+  
+  .redes-sociales-premium {
+    margin-top: 24px;
+  }
+  
+  .mapa-embebido { 
+    height: 220px; 
+  }
+  
+  .copyright {
+    padding-top: 25px;
+    font-size: 0.85rem;
+  }
+  
+  .boton-whatsapp-flotante { 
+    width: 60px; 
+    height: 60px; 
+    bottom: 20px; 
+    right: 20px; 
+  }
+  
   .modal-header-mejorado h2 { font-size: 1.4rem; }
   .tab-sub { padding: 6px 14px; font-size: 0.8rem; }
   
-  /* MODAL EN 1 COLUMNA VERTICAL PARA MÓVIL */
   .modal-body-mejorado { 
     grid-template-columns: 1fr; 
   }
@@ -1366,7 +1417,6 @@ a {
   .boton-primario, .boton-secundario { padding: 14px 32px; font-size: 0.9rem; }
   .titulo-seccion { font-size: 1.6rem; }
   
-  /* GRILLA DE INSTALACIONES EN 2 COLUMNAS PARA MÓVIL PEQUEÑO */
   .grilla-instalaciones { 
     grid-template-columns: repeat(2, 1fr); 
     gap: 12px;
@@ -1417,11 +1467,88 @@ a {
   }
   
   .grilla-eventos { grid-template-columns: 1fr; }
-  .icono-red-premium { width: 48px; height: 48px; }
-  .icono-red-premium svg { width: 22px; height: 22px; }
-  .mapa-embebido { height: 220px; }
   
-  /* MODAL EN 1 COLUMNA VERTICAL PARA MÓVIL PEQUEÑO */
+  .seccion-convenios {
+    padding: 30px 15px;
+  }
+  
+  .seccion-convenios .titulo-seccion {
+    font-size: 1.4rem;
+    margin-bottom: 10px;
+  }
+  
+  .carrusel-convenios {
+    gap: 40px;
+    margin-top: 25px;
+  }
+  
+  .logo-convenio {
+    height: 50px;
+  }
+  
+  .pie-pagina {
+    padding: 30px 15px 20px;
+  }
+  
+  .grilla-contacto {
+    gap: 25px;
+    margin-bottom: 25px;
+  }
+  
+  .titulo-footer {
+    font-size: 1.3rem;
+    margin-bottom: 18px;
+  }
+  
+  .item-contacto {
+    margin-bottom: 14px;
+    gap: 12px;
+  }
+  
+  .item-contacto svg {
+    width: 20px;
+    height: 20px;
+  }
+  
+  .item-contacto a {
+    font-size: 0.85rem;
+  }
+  
+  .redes-sociales-premium {
+    margin-top: 20px;
+    gap: 12px;
+  }
+  
+  .icono-red-premium { 
+    width: 48px; 
+    height: 48px; 
+  }
+  
+  .icono-red-premium svg { 
+    width: 22px; 
+    height: 22px; 
+  }
+  
+  .titulo-mapa {
+    font-size: 1.1rem;
+    margin-bottom: 12px;
+  }
+  
+  .mapa-embebido { 
+    height: 200px;
+    border-width: 2px;
+  }
+  
+  .copyright {
+    padding-top: 20px;
+    font-size: 0.8rem;
+  }
+  
+  .creditos {
+    font-size: 0.8rem;
+    margin-top: 6px;
+  }
+  
   .modal-contenido-mejorado { 
     border-radius: 16px; 
   }
@@ -1492,4 +1619,4 @@ a {
     width: 18px;
     height: 18px;
   }
-  }
+}
